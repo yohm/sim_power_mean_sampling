@@ -56,7 +56,7 @@ void Sampling::AssignPreference( std::vector<double>& pref, double f0, double al
 }
 
 double Sampling::LinkSamplingProbParametrized( double fi, double fj, double sum_exp ) {
-  return fi*fj*2 / std::pow(fi+fj, sum_exp);
+  return fi*fj* std::pow( (fi+fj)/2.0, sum_exp);
 }
 
 std::map<size_t,size_t> Sampling::CompactIndex( const std::set<size_t>& nodes ) {

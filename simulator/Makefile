@@ -4,7 +4,7 @@ OPT=-O2 -Wall -std=c++11
 # OPT=-O0 -Wall -pg -Wno-c++11-extensions
 INCLUDE=
 
-all: parametrized_sampling.out
+all: parametrized_sampling.out parametrized_sampling_truncation.out
 
 HEADERS=network.hpp sampling.hpp
 SRCS=network.cpp sampling.cpp
