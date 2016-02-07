@@ -20,7 +20,7 @@ int main(int argc, char** argv) {
   boost::random::mt19937 rnd(seed);
   Sampling net(&rnd);
   net.GenerateER( num_nodes, average_degree, &rnd );
-  Network* sampled = net.ParametrizedSampling(f0, alpha, sum_exp, false);
+  Network* sampled = net.ParametrizedSampling(f0, alpha, sum_exp, true);
   std::ofstream fout("sampled.edg");
   sampled->Print( fout );
   fout.flush();

@@ -2,9 +2,9 @@
 #include <set>
 #include <algorithm>
 
-Network* Sampling::ParametrizedSampling(double f0, double alpha, double sum_exp) {
+Network* Sampling::ParametrizedSampling(double f0, double alpha, double sum_exp, bool truncate_pf ) {
   std::vector<double> pref( m_nodes.size() );
-  AssignPreference( pref, f0, alpha );
+  AssignPreference( pref, f0, alpha, truncate_pf );
 
   std::vector<size_t> sampledDegrees( m_nodes.size(), 0 );
 
@@ -45,9 +45,12 @@ Network* Sampling::ParametrizedSampling(double f0, double alpha, double sum_exp)
   return net;
 }
 
-void Sampling::AssignPreference( std::vector<double>& pref, double f0, double alpha ) {
+void Sampling::AssignPreference( std::vector<double>& pref, double f0, double alpha, bool truncate_pf ) {
   for( size_t i=0; i < pref.size(); i++) {
     double x = RandWeibull(alpha, f0);
+    while( truncate_pf && x > 1.0 ) {
+      x = RandWeibull(alpha, f0);
+    }
     pref[i] = x;
   }
 }

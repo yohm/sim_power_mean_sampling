@@ -19,5 +19,8 @@ sampling.o: sampling.cpp $(HEADERS)
 parametrized_sampling.out: $(OBJS) $(HEADERS) parametrized_sampling.cpp Makefile
 	$(CPP) $(OPT) $(INCLUDE) ${OBJS} parametrized_sampling.cpp -o $@
 
+parametrized_sampling_truncation.out: $(OBJS) $(HEADERS) parametrized_sampling_truncation.cpp Makefile
+	$(CPP) $(OPT) $(INCLUDE) ${OBJS} parametrized_sampling_truncation.cpp -o $@
+
 clean:
 	rm -f *.out *~ *.bak *.o
