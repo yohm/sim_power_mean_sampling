@@ -2,7 +2,7 @@
 #include <set>
 #include <algorithm>
 
-Network* Sampling::ParametrizedSampling(double f0, double alpha, double sum_exp, bool truncate_pf ) {
+Network* Sampling::PowerMeanSampling(double f0, double alpha, double power, bool truncate_pf ) {
   std::vector<double> pref( m_nodes.size() );
   AssignPreference( pref, f0, alpha, truncate_pf );
 
@@ -13,7 +13,7 @@ Network* Sampling::ParametrizedSampling(double f0, double alpha, double sum_exp,
   for( const Link& l : m_links ) {
     size_t ni = l.m_node_id1;
     size_t nj = l.m_node_id2;
-    double p = LinkSamplingProbParametrized( pref[ni], pref[nj], sum_exp );
+    double p = PowerMean( pref[ni], pref[nj], power );
     if( Rand01() < p ) {
       sampledLinks.insert( Link(ni,nj,l.m_weight) );
       sampledNodes.insert(ni);
@@ -55,8 +55,11 @@ void Sampling::AssignPreference( std::vector<double>& pref, double f0, double al
   }
 }
 
-double Sampling::LinkSamplingProbParametrized( double fi, double fj, double sum_exp ) {
-  return fi*fj* std::pow( (fi+fj)/2.0, sum_exp);
+double Sampling::PowerMean( double fi, double fj, double power ) {
+  if( power == 0.0 ) { return std::sqrt( fi*fj ); }
+  else {
+    return std::pow( 0.5*(std::pow(fi, power) + std::pow(fj, power)), 1.0/power);
+  }
 }
 
 std::map<size_t,size_t> Sampling::CompactIndex( const std::set<size_t>& nodes ) {

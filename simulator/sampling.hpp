@@ -10,7 +10,7 @@
 class Sampling : public Network {
 public:
   Sampling(boost::random::mt19937* rnd) : m_rnd(rnd) {}
-  Network* ParametrizedSampling( double f0, double alpha, double sum_exp, bool truncate_pf = false );
+  Network* PowerMeanSampling( double f0, double alpha, double power, bool truncate_pf = false );
 private:
   boost::random::mt19937* const m_rnd;
   double Rand01() {
@@ -26,7 +26,7 @@ private:
     return weibull(*m_rnd);
   }
   void AssignPreference( std::vector<double>&pref, double f0, double alpha, bool truncate_pf );
-  double LinkSamplingProbParametrized( double fi, double fj, double sum_exp );
+  double PowerMean( double fi, double fj, double sum_exp );
 
   Network* MakeNewNet( const std::set<size_t>& nodes, const std::set<Link>& links );
   std::map<size_t,size_t> CompactIndex( const std::set<size_t>& nodes );
