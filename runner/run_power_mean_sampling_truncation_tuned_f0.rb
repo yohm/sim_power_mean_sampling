@@ -38,3 +38,10 @@ $stderr.puts command
 system(command)
 raise "Analyzer failed" unless $?.to_i == 0
 
+# load f0
+f0 = File.read("f0.dat").to_f
+json = JSON.load( File.open("_output.json") )
+json["f0"] = f0
+File.open("_output.json", 'w') {|io| io.puts json.to_json }
+
+

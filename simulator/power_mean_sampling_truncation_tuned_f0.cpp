@@ -103,6 +103,10 @@ int main(int argc, char** argv) {
     }
   }
 
+  std::ofstream f0out("f0.dat");
+  f0out << f0 << std::endl;
+  f0out.flush();
+  f0out.close();
   std::ofstream fout("sampled.edg");
   sampled->Print( fout );
   fout.flush();
