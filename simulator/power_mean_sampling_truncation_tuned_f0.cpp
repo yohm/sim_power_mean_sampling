@@ -97,6 +97,10 @@ int main(int argc, char** argv) {
     f0 = FindF0FromResults( results, input.m_expected_k );
     sampled = RunSampling( f0, input, rnd );
     std::cerr << "  f0: " << f0 << ", k: " << sampled->AverageDegree() << std::endl;
+
+    if( results.size() > 10 ) {
+      results.pop_front();
+    }
   }
 
   std::ofstream fout("sampled.edg");
