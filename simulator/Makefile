@@ -4,7 +4,7 @@ OPT=-O2 -Wall -std=c++11
 # OPT=-O0 -Wall -pg -Wno-c++11-extensions
 INCLUDE=
 
-all: power_mean_sampling.out power_mean_sampling_truncation.out
+all: power_mean_sampling.out power_mean_sampling_truncation.out power_mean_sampling_truncation_tuned_f0.out
 
 HEADERS=network.hpp sampling.hpp
 SRCS=network.cpp sampling.cpp
@@ -22,5 +22,9 @@ power_mean_sampling.out: $(OBJS) $(HEADERS) power_mean_sampling.cpp Makefile
 power_mean_sampling_truncation.out: $(OBJS) $(HEADERS) power_mean_sampling_truncation.cpp Makefile
 	$(CPP) $(OPT) $(INCLUDE) ${OBJS} power_mean_sampling_truncation.cpp -o $@
 
+power_mean_sampling_truncation_tuned_f0.out: $(OBJS) $(HEADERS) power_mean_sampling_truncation_tuned_f0.cpp Makefile
+	$(CPP) $(OPT) $(INCLUDE) ${OBJS} power_mean_sampling_truncation_tuned_f0.cpp -o $@
+
 clean:
 	rm -f *.out *~ *.bak *.o
+
