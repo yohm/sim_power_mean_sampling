@@ -15,7 +15,7 @@ params = JSON.load(File.open(ARGV[0]))
 simulator = File.expand_path( File.join( File.dirname(__FILE__), "../simulator/power_mean_sampling.out") )
 
 $stderr.puts "Running simulation"
-keys = %w(N k f0 alpha power _seed)
+keys = %w(N k f0 alpha beta _seed)
 args = keys.map {|key| params[key] }
 command = "#{simulator} #{args.join(' ')}"
 $stderr.puts "Running simulator : #{DateTime.now}"

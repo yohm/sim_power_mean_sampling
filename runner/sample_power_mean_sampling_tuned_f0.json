@@ -4,6 +4,6 @@
   "expected_k": 15.0,
   "dk": 2.0,
   "alpha": 1.0,
-  "power": 0.0,
+  "beta": 0.0,
   "_seed": 1234
 }
