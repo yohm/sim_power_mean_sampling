@@ -16,10 +16,10 @@ end
 
 params = JSON.load(File.open(ARGV[0]))
 
-simulator = File.expand_path( File.join( File.dirname(__FILE__), "../simulator/power_mean_sampling_truncation_tuned_f0.out") )
+simulator = File.expand_path( File.join( File.dirname(__FILE__), "../simulator/power_mean_sampling_tuned_f0.out") )
 
 $stderr.puts "Running simulation"
-keys = %w(N k0 f0 expected_k dk alpha power _seed)
+keys = %w(N k0 f0 expected_k dk alpha beta _seed)
 args = keys.map {|key| params[key] }
 command = "#{simulator} #{args.join(' ')}"
 $stderr.puts "Running simulator : #{DateTime.now}"
@@ -30,7 +30,7 @@ raise "Simulator failed" unless $?.to_i == 0
 sleep 1
 
 # execute analyzer
-analyzer = File.expand_path( File.join( File.dirname(__FILE__), "../analyzer/analyzer.out") )
+analyzer = File.expand_path( File.join( File.dirname(__FILE__), "../network_analysis/analyzer.out") )
 edge_file = "sampled.edg"
 command = "#{analyzer} #{edge_file}"
 $stderr.puts "Running analyzer : #{DateTime.now}"

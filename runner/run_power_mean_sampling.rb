@@ -26,7 +26,7 @@ raise "Simulator failed" unless $?.to_i == 0
 sleep 1
 
 # execute analyzer
-analyzer = File.expand_path( File.join( File.dirname(__FILE__), "../analyzer/analyzer.out") )
+analyzer = File.expand_path( File.join( File.dirname(__FILE__), "../network_analysis/analyzer.out") )
 edge_file = "sampled.edg"
 command = "#{analyzer} #{edge_file}"
 $stderr.puts "Running analyzer : #{DateTime.now}"
