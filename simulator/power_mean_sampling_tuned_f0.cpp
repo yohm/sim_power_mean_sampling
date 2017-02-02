@@ -15,14 +15,13 @@ public:
   double m_expected_k;
   double m_dk;
   double m_alpha;
-  double m_power;
+  double m_beta;
   uint64_t m_seed;
   void Load( int argc, char** argv ) {
     if(argc != 8) {
       std::cerr << "Usage : ./parametrized_sampling.out N k0 expected_k dk alpha mean_power _seed" << std::endl;
-      std::cerr << "  For of p_{ij} = ((f_i^p*f_j^p)/2)^(1/p)" << std::endl;
       std::cerr << "  f0 is controlled so that the sampled degree is in expected_k +- dk" << std::endl;
-      exit(1);
+      throw "invalid arguments";
     }
 
     m_N = boost::lexical_cast<size_t>(argv[1]);
@@ -30,7 +29,7 @@ public:
     m_expected_k = boost::lexical_cast<double>(argv[3]);
     m_dk = boost::lexical_cast<double>(argv[4]);
     m_alpha = boost::lexical_cast<double>(argv[5]);
-    m_power = boost::lexical_cast<double>(argv[6]);
+    m_beta = boost::lexical_cast<double>(argv[6]);
     m_seed = boost::lexical_cast<uint64_t>(argv[7]);
   };
 };
@@ -63,7 +62,7 @@ Network* RunSampling( double f0, const InputParameters& input, rand_t& rnd ) {
   Sampling net(&rnd);
   net.GenerateER( input.m_N, input.m_k0, &rnd);
 
-  Network* sampled = net.PowerMeanSampling(f0, input.m_alpha, input.m_power);
+  Network* sampled = net.PowerMeanSampling(f0, input.m_alpha, input.m_beta);
   return sampled;
 }
 

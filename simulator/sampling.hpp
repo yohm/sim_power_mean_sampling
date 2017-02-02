@@ -10,7 +10,7 @@
 class Sampling : public Network {
 public:
   Sampling(boost::random::mt19937* rnd) : m_rnd(rnd) {}
-  Network* PowerMeanSampling( double f0, double alpha, double power);
+  Network* PowerMeanSampling( double f0, double alpha, double beta);
 private:
   boost::random::mt19937* const m_rnd;
   double Rand01() {

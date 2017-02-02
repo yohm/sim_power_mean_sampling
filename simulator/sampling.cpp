@@ -2,7 +2,7 @@
 #include <set>
 #include <algorithm>
 
-Network* Sampling::PowerMeanSampling(double f0, double alpha, double power) {
+Network* Sampling::PowerMeanSampling(double f0, double alpha, double beta) {
   std::vector<double> pref( m_nodes.size() );
   AssignPreference( pref, f0, alpha );
 
@@ -13,7 +13,7 @@ Network* Sampling::PowerMeanSampling(double f0, double alpha, double power) {
   for( const Link& l : m_links ) {
     size_t ni = l.m_node_id1;
     size_t nj = l.m_node_id2;
-    double p = PowerMean( pref[ni], pref[nj], power );
+    double p = PowerMean( pref[ni], pref[nj], beta );
     if( Rand01() < p ) {
       sampledLinks.insert( Link(ni,nj,l.m_weight) );
       sampledNodes.insert(ni);
@@ -55,10 +55,10 @@ void Sampling::AssignPreference( std::vector<double>& pref, double f0, double al
   }
 }
 
-double Sampling::PowerMean( double fi, double fj, double power ) {
-  if( power == 0.0 ) { return std::sqrt( fi*fj ); }
+double Sampling::PowerMean( double fi, double fj, double beta ) {
+  if( beta == 0.0 ) { return std::sqrt( fi*fj ); }
   else {
-    return std::pow( 0.5*(std::pow(fi, power) + std::pow(fj, power)), 1.0/power);
+    return std::pow( 0.5*(std::pow(fi, beta) + std::pow(fj, beta)), 1.0/beta);
   }
 }
 
