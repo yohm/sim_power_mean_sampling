@@ -2,9 +2,9 @@
 #include <set>
 #include <algorithm>
 
-Network* Sampling::PowerMeanSampling(double f0, double alpha, double power, bool truncate_pf ) {
+Network* Sampling::PowerMeanSampling(double f0, double alpha, double power) {
   std::vector<double> pref( m_nodes.size() );
-  AssignPreference( pref, f0, alpha, truncate_pf );
+  AssignPreference( pref, f0, alpha );
 
   std::vector<size_t> sampledDegrees( m_nodes.size(), 0 );
 
@@ -45,10 +45,10 @@ Network* Sampling::PowerMeanSampling(double f0, double alpha, double power, bool
   return net;
 }
 
-void Sampling::AssignPreference( std::vector<double>& pref, double f0, double alpha, bool truncate_pf ) {
+void Sampling::AssignPreference( std::vector<double>& pref, double f0, double alpha ) {
   for( size_t i=0; i < pref.size(); i++) {
     double x = RandWeibull(alpha, f0);
-    while( truncate_pf && x > 1.0 ) {
+    while( x > 1.0 ) {
       x = RandWeibull(alpha, f0);
     }
     pref[i] = x;

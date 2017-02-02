@@ -63,7 +63,7 @@ Network* RunSampling( double f0, const InputParameters& input, rand_t& rnd ) {
   Sampling net(&rnd);
   net.GenerateER( input.m_N, input.m_k0, &rnd);
 
-  Network* sampled = net.PowerMeanSampling(f0, input.m_alpha, input.m_power, true);
+  Network* sampled = net.PowerMeanSampling(f0, input.m_alpha, input.m_power);
   return sampled;
 }
 
