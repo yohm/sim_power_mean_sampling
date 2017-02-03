@@ -19,34 +19,63 @@ See section V of the paper for more accurate description.
 
 ## Compiling
 
-To copmile the program, you need boost C++ library.
-You do not have to compile boost since header-only libraries are required.
-Put the boost library in an appropriate path. Then, run `make` in "simulator/" and "network_analysis" directories.
+Run `make` twice in "simulator" and "network\_analysis" directories.
 
 ```sh
-cd simulator && make && cd -
-cd analyzer && make && cd -
+cd simulator && make && cd ../network_analysis && make && cd ..
 ```
 
-If you would like to specify the compiler and/or include path explicitly, set `CXX` and `INCLUDE` environment variables.
+If you would like to specify the compiler explicitly, set `CXX` environment variables.
 
 ```
-env CXX=g++ INCLUDE=-I/usr/local/include make
+env CXX=g++ make
 ```
+
+There are two kinds of simulators.
+The first one requires the value of *f0* as an input parameter and then conduct sampling.
+The other one requires the degree after the sampling and its acceptable margin after the sampling.
+Samplings are conducted iteratively to tune *f0* so that the sampled network are close enough to the given degree.
 
 ## Running
 
-To run the simulation, run the following code and you'll find an output file named `sampled.edg`.
+To run the first simulator, prepare a JSON file specifying the input parameters like the following
+
+```json
+{
+  "N": 1000,
+  "k": 20.0,
+  "f0": 0.3,
+  "alpha": 1.0,
+  "beta": 0.0,
+  "_seed": 1234
+}
+```
+
+and then run the script as follows.
 
 ```
-./sampling.out <input net file> <alpha> <beta> <f0> <q> <seed>
+ruby runner/run_power_mean_sampling.rb parameters.json
 ```
 
-Instead of specifying `f0`, you can also specify the sampled degree. In this case, f0 is tuned so that the sampled degree becomes `<k>+-<dk>`.
+After you ran the simulation, you'll find the output files in the current directory.
+
+To run the second simulator, the format of the input JSON is slightly different.
+
+```json
+{
+  "N": 2000,
+  "k0": 150.0,
+  "expected_k": 15.0,
+  "dk": 2.0,
+  "alpha": 1.0,
+  "beta": 0.0,
+  "_seed": 1234
+}
+```
+
+and then run the script as follows.
 
 ```
-./sampling_targeted_k.out <input net file> <alpha> <beta> <k> <dk> <q> <seed>
+ruby runner/run_power_mean_sampling_tuned_f0.rb parameters.json
 ```
-
-Note: When beta < -5, we use min(fi,fj) instead of the generalized mean for numerical stability. For the same reason, we use max(fi,fj) when beta > 5.
 
