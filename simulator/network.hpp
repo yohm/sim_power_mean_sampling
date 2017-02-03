@@ -5,7 +5,7 @@
 #include <fstream>
 #include <vector>
 #include <map>
-#include <boost/random.hpp>
+#include <random>
 
 class Network {
 public:
@@ -16,7 +16,7 @@ public:
   }
   ~Network() {};
   void LoadFile( std::ifstream& fin );
-  void GenerateER( size_t num_nodes, double average_degree, boost::random::mt19937* rnd );
+  void GenerateER( size_t num_nodes, double average_degree, std::mt19937* rnd );
   void Print( std::ostream& out = std::cerr ) const;
   size_t NumNodes() const { return m_nodes.size(); }
   size_t NumEdges() const;

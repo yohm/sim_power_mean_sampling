@@ -19,13 +19,13 @@ void Network::LoadFile( std::ifstream& fin ) {
   }
 }
 
-void Network::GenerateER( size_t net_size, double average_degree, boost::random::mt19937* rnd ) {
+void Network::GenerateER( size_t net_size, double average_degree, std::mt19937* rnd ) {
   m_nodes.resize( net_size );
   for( size_t i=0; i < m_nodes.size(); i++ ) {
     m_nodes[i].m_id = i;
   }
 
-  boost::random::uniform_01<> uniform;
+  std::uniform_real_distribution<double> uniform(0.0,1.0);
   double prob = average_degree / net_size;
   for( size_t i=0; i < m_nodes.size(); i++) {
     for( size_t j=i+1; j < m_nodes.size(); j++) {

@@ -1,11 +1,10 @@
 #include <iostream>
 #include <queue>
-#include <boost/lexical_cast.hpp>
-#include <boost/random.hpp>
+#include <random>
 #include "sampling.hpp"
 
 typedef std::deque< std::pair<double, double> > results_t;
-typedef boost::random::mt19937 rand_t;
+typedef std::mt19937 rand_t;
 
 class InputParameters {
 public:
@@ -24,13 +23,13 @@ public:
       throw "invalid arguments";
     }
 
-    m_N = boost::lexical_cast<size_t>(argv[1]);
-    m_k0 = boost::lexical_cast<double>(argv[2]);
-    m_expected_k = boost::lexical_cast<double>(argv[3]);
-    m_dk = boost::lexical_cast<double>(argv[4]);
-    m_alpha = boost::lexical_cast<double>(argv[5]);
-    m_beta = boost::lexical_cast<double>(argv[6]);
-    m_seed = boost::lexical_cast<uint64_t>(argv[7]);
+    m_N = std::stoul(argv[1]);
+    m_k0 = std::stod(argv[2]);
+    m_expected_k = std::stod(argv[3]);
+    m_dk = std::stod(argv[4]);
+    m_alpha = std::stod(argv[5]);
+    m_beta = std::stod(argv[6]);
+    m_seed = std::stoull(argv[7]);
   };
 };
 

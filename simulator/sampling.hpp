@@ -4,25 +4,25 @@
 #include <iostream>
 #include <set>
 #include <string>
-#include <boost/random.hpp>
+#include <random>
 #include "network.hpp"
 
 class Sampling : public Network {
 public:
-  Sampling(boost::random::mt19937* rnd) : m_rnd(rnd) {}
+  Sampling(std::mt19937* rnd) : m_rnd(rnd) {}
   Network* PowerMeanSampling( double f0, double alpha, double beta);
 private:
-  boost::random::mt19937* const m_rnd;
+  std::mt19937* const m_rnd;
   double Rand01() {
-    boost::random::uniform_01<> uniform;
+    std::uniform_real_distribution<double> uniform(0.0,1.0);
     return uniform(*m_rnd);
   }
   double RandExp() {
-    boost::random::exponential_distribution<double> exp(1.0);
+    std::exponential_distribution<double> exp(1.0);
     return exp(*m_rnd);
   }
   double RandWeibull( double exponent, double f0 ) {
-    boost::random::weibull_distribution<double> weibull(exponent, f0);
+    std::weibull_distribution<double> weibull(exponent, f0);
     return weibull(*m_rnd);
   }
   void AssignPreference( std::vector<double>&pref, double f0, double alpha );
