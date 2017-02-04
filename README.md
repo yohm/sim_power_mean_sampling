@@ -88,4 +88,9 @@ ruby runner/run_power_mean_sampling_tuned_f0.rb parameters.json
 # Installer
 
 Run `install.sh` will compile the codes and then registers two simulators to OACIS.
+To use it in OACIS docker container, run the container from `oacis/oacis_jupyter` image and run the following. (Container name may be different from yours.)
+
+```sh
+docker exec -it -u oacis my_oacis bash -c "git clone https://github.com/yohm/sim_power_mean_sampling.git && sim_power_mean_sampling/install.sh"
+```
 
