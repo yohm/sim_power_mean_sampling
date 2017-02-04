@@ -19,6 +19,12 @@ See section V of the paper for more accurate description.
 
 ## Compiling
 
+Clone git submodules.
+
+```sh
+git submodule update --init --recursive
+```
+
 Run `make` twice in "simulator" and "network\_analysis" directories.
 
 ```sh
