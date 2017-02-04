@@ -79,3 +79,7 @@ and then run the script as follows.
 ruby runner/run_power_mean_sampling_tuned_f0.rb parameters.json
 ```
 
+# Installer
+
+Run `install.sh` will compile the codes and then registers two simulators to OACIS.
+
