@@ -34,3 +34,19 @@ $stderr.puts command
 system(command)
 raise "Analyzer failed" unless $?.to_i == 0
 
+# calculate P(k=1)/max{P(k)}
+def calc_p1_maxpk
+  pk = {}
+  File.open('degree_distribution.dat').each do |line|
+    k,x = line.split.map(&:to_i)
+    pk[k] = x
+  end
+  p1 = pk[1] || 0
+  pk_max = pk.values.max
+
+  loaded = JSON.load( File.open('_output.json') )
+  loaded['p1/pmax'] = p1.to_f / pk_max
+  JSON.dump( loaded, File.open('_output.json', 'w') )
+end
+calc_p1_maxpk
+
