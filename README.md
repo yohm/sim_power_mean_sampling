@@ -91,6 +91,6 @@ Run `install.sh` will compile the codes and then registers two simulators to OAC
 To use it in OACIS docker container, run the container from `oacis/oacis_jupyter` image and run the following. (Container name may be different from yours.)
 
 ```sh
-docker exec -it -u oacis my_oacis bash -c "git clone https://github.com/yohm/sim_power_mean_sampling.git && sim_power_mean_sampling/install.sh"
+docker exec -it -u oacis my_oacis bash -c "git clone --recursive https://github.com/yohm/sim_power_mean_sampling.git && sim_power_mean_sampling/install.sh"
 ```
 
