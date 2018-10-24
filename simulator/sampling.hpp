@@ -30,6 +30,8 @@ private:
 
   Network* MakeNewNet( const std::set<size_t>& nodes, const std::set<Link>& links );
   std::map<size_t,size_t> CompactIndex( const std::set<size_t>& nodes );
+  const double BETA_MIN = -10.0;
+  const double BETA_MAX = 10.0;
 };
 
 #endif

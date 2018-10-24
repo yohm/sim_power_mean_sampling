@@ -8,6 +8,13 @@ Network* Sampling::PowerMeanSampling(double f0, double alpha, double beta) {
 
   std::vector<size_t> sampledDegrees( m_nodes.size(), 0 );
 
+  if( beta <= BETA_MIN ) {
+    std::cerr << "[warning] min(fi,fj) is used instead of the generalized mean" << std::endl;
+  }
+  else if( beta >= Sampling::BETA_MAX ) {
+    std::cerr << "[warning] max(fi,fj) is used instead of the generalized mean" << std::endl;
+  }
+
   std::set<size_t> sampledNodes;
   std::set<Link> sampledLinks;
   for( const Link& l : m_links ) {
@@ -57,6 +64,12 @@ void Sampling::AssignPreference( std::vector<double>& pref, double f0, double al
 
 double Sampling::PowerMean( double fi, double fj, double beta ) {
   if( beta == 0.0 ) { return std::sqrt( fi*fj ); }
+  else if( beta <= BETA_MIN ) {
+    return std::fmin(fi, fj);
+  }
+  else if( beta >= BETA_MAX ) {
+    return std::fmax(fi, fj);
+  }
   else {
     return std::pow( 0.5*(std::pow(fi, beta) + std::pow(fj, beta)), 1.0/beta);
   }
